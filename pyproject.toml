@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=77", "setuptools-scm>=8"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -15,7 +15,7 @@ keywords = [
     "backend",
     "singularity",
 ]
-dynamic = ["version"]
+version = "0.1.0"
 readme = "README.rst"
 license = "MIT"
 requires-python = ">=3.9"  # Older versions cannot be tested anymore.
@@ -36,7 +36,6 @@ sge_singularity = "miniwdl_sge:SGESingularity"
 
 [project.scripts]
 
-[tool.setuptools_scm]
 
 [tool.setuptools.packages.find]
 where = ["src"]
