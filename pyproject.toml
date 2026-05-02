@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=77", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name= "miniwdl-sge"
+description = "miniwdl SGE backend using singularity"
+authors = [
+    {name = "Byunggil Yoo",  email = "byunggil.yoo@gmail.com"}
+]
+keywords = [
+    "WDL",
+    "miniwdl",
+    "sge",
+    "backend",
+    "singularity",
+]
+dynamic = ["version"]
+readme = "README.rst"
+license = "MIT"
+requires-python = ">=3.9"  # Older versions cannot be tested anymore.
+dependencies = [
+    "miniwdl>=1.7.0"
+]
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: System :: Distributed Computing",
+]
+
+[project.entry-points."miniwdl.plugin.container_backend"]
+sge_singularity = "miniwdl_sge:SGESingularity"
+
+[project.urls]
+"Homepage" = "https://github.com/byoo/miniwdl-sge"
+
+[project.scripts]
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+miniwdl_sge = [
+    "scripts/*.sh"
+]
+
