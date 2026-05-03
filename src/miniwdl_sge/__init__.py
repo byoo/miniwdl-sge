@@ -165,7 +165,7 @@ class SGESingularity(SingularityContainer):
 
         wrapper_script = os.path.join(os.path.dirname(__file__), "scripts",
                                       "qsub_wrapper.py")
-        return [wrapper_script] + qsub_args + ["--"]
+        return [sys.executable, wrapper_script] + qsub_args + ["--"]
 
     def _run_invocation(self, logger: logging.Logger, cleanup: ExitStack,
                         image: str) -> List[str]:
