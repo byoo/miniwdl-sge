@@ -115,7 +115,6 @@ class SGESingularity(SingularityContainer):
             "-sync", "y",
             "-terse",  # Make job ID parsing easier.
             "-N", self.run_id,
-            "-b", "y", # Submit as a binary script rather than bash script natively
             "-V", # Pass environment variables
             "-cwd", # Execute job from current working directory
         ]
@@ -164,7 +163,9 @@ class SGESingularity(SingularityContainer):
             # Similar to slurm's dynamic partition rule matching.
             pass
 
-        return qsub_args
+        wrapper_script = os.path.join(os.path.dirname(__file__), "scripts",
+                                      "qsub_wrapper.py")
+        return [wrapper_script] + qsub_args + ["--"]
 
     def _run_invocation(self, logger: logging.Logger, cleanup: ExitStack,
                         image: str) -> List[str]:

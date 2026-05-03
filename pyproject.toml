@@ -42,6 +42,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 miniwdl_sge = [
-    "scripts/*.sh"
+    "scripts/*.sh",
+    "scripts/*.py"
 ]
 
