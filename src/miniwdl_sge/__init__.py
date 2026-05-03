@@ -164,10 +164,6 @@ class SGESingularity(SingularityContainer):
             # Similar to slurm's dynamic partition rule matching.
             pass
 
-        # This is a script that simply executes all the following arguments.
-        exec_script = os.path.join(os.path.dirname(__file__), "scripts",
-                                   "exec_script.sh")
-        qsub_args.append(exec_script)
         return qsub_args
 
     def _run_invocation(self, logger: logging.Logger, cleanup: ExitStack,
