@@ -147,8 +147,10 @@ class SGESingularity(SingularityContainer):
         if sge_h_vmem is not None:
             qsub_args.extend(["-l", f"h_vmem={sge_h_vmem}"])
         elif memory is not None:
-            # Round to the nearest megabyte.
-            qsub_args.extend(["-l", f"h_vmem={round(memory / (1024 ** 2))}M"])
+            # Apptainer container runtime overhead requires ~2GB virtual memory address space.
+            # Enforce a minimum h_vmem of 4096M so small tasks are not killed by SGE.
+            mem_mb = max(4096, round(memory / (1024 ** 2)))
+            qsub_args.extend(["-l", f"h_vmem={mem_mb}M"])
 
         time_minutes = self.runtime_values.get("time_minutes", None)
         if time_minutes is not None:
