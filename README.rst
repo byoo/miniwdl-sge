@@ -77,6 +77,10 @@ A ``miniwdl.cfg`` configuration file (can be placed in the current working direc
     # Extra arguments to pass to the qsub command.
     extra_args="-j y"
 
+    # Customizable format for GPU requests (default: "-l gpu={gpuCount}").
+    # Set to "none", "off", "false", or "" to take no action for gpuCount.
+    gpu_resource_format="-l gpu={gpuCount}"
+
 Runtime Variables
 -----------------
 
@@ -89,7 +93,7 @@ The following runtime variables are supported for adjusting SGE parameters:
 - ``sge_pe``: Mapped to `-pe <pe_name> <cpu>` (default: make)
 - ``sge_h_vmem``: Mapped to `-l h_vmem=<mem>` (memory reservation is used as fallback)
 - ``cpu``: Mapped to the number of slots in `-pe`
-- ``gpuCount``: Mapped to `-l gpu=<count>`
+- ``gpuCount``: Formatted according to ``gpu_resource_format`` (default: `-l gpu=<count>`), or ignored if ``gpu_resource_format = none``
 
 License
 -------

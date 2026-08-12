@@ -121,9 +121,14 @@ class SGESingularity(SingularityContainer):
 
         gpuCount = self.runtime_values.get("gpuCount", None)
         if gpuCount is not None:
-            # Different clusters use different GPU specifications. 
-            # Often it's requested via -l gpu=X
-            qsub_args.extend(["-l", f"gpu={gpuCount}"])
+            # Different clusters use different GPU specifications.
+            # Default is "-l gpu={gpuCount}", but can be overridden or set to "none" to take no action.
+            gpu_fmt = "-l gpu={gpuCount}"
+            if self.cfg.has_section("sge"):
+                gpu_fmt = self.cfg.get("sge", "gpu_resource_format", gpu_fmt).strip()
+            if gpu_fmt.lower() not in ("", "none", "off", "false"):
+                formatted = gpu_fmt.format(gpuCount=gpuCount)
+                qsub_args.extend(shlex.split(formatted))
 
         project = self.runtime_values.get("sge_project", None)
         if project is not None:
